@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-y+6IOTPZpGJT1f34l+h1BijuALZRI1sY82XpPW38BYg='; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<title>Fiber Sales Practice Lab</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f3f6f9;color:#15283a;font:16px/1.55 system-ui,sans-serif}header{background:#102a43;color:#fff}header>div,main{max-width:1090px;margin:auto;padding:24px clamp(16px,4vw,36px)}header>div{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px}h1,h2,p{margin:0 0 .65em}h1{font-size:clamp(1.65rem,4vw,2.5rem);line-height:1.1}.eyebrow{font-size:.76rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:#176b62}header .eyebrow{color:#80e2cf}.muted{color:#4b6176}header .muted{color:#d0e2f3}progress{width:165px;accent-color:#44d3b7}.filters{background:white;border:1px solid #cdd9e3;border-radius:14px;padding:16px;margin:18px 0}.row{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:10px}button,input{font:inherit}input{width:100%;border:1px solid #879db0;border-radius:8px;padding:9px 12px}button{cursor:pointer;background:#fff;color:#17314a;border:1px solid #879db0;border-radius:8px;padding:8px 12px}button[aria-pressed=true],.primary{background:#14655d;color:white;border-color:#14655d}button:focus-visible,input:focus-visible{outline:3px solid #087eaa;outline-offset:3px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,245px),1fr));gap:14px}.card{text-align:left;display:flex;flex-direction:column;gap:8px;min-height:144px;padding:17px;box-shadow:0 2px 7px #17314a12}.card:hover{border-color:#14655d;background:#f7fffc}.card strong{font-size:1.1rem}.card small{color:#4b6176}dialog{width:min(92vw,630px);max-height:90vh;overflow:auto;border:1px solid #879db0;border-radius:16px;padding:24px;color:#15283a}dialog::backdrop{background:#102a43b8}.between{display:flex;justify-content:space-between;gap:10px;align-items:center}.bubble{background:#e9f5f2;border-left:4px solid #14655d;padding:14px;border-radius:6px;margin:12px 0}.phase{min-height:110px}footer{margin-top:24px;font-size:.85rem}
+body{font-size:18px;line-height:1.65;color:#10263a}.muted,.card small{color:#354d63}.eyebrow{font-size:.86rem;letter-spacing:.08em}.card strong{font-size:1.22rem;line-height:1.4}.card small{font-size:.96rem}.card{min-height:160px}.phase,.bubble{font-size:1.08rem}footer{font-size:.95rem}button,input{min-height:44px}label[for=search]{display:block;font-weight:700;margin-bottom:6px}header .muted{color:#e3effa}dialog{width:min(94vw,680px)}@media(max-width:480px){dialog{padding:16px}header>div,main{padding-inline:16px}}
+dialog{background:#fff;color:#10263a}dialog .eyebrow,#phase{color:#11534c}#phase{font-size:1rem;font-weight:800;letter-spacing:.05em}#body,.bubble{color:#10263a;font-size:1.125rem;line-height:1.65}.exit{padding:12px 14px;background:#edf4f8;border-radius:8px;color:#18364b;margin-bottom:16px}
+.reference{margin:24px 0;padding:18px;background:#fff;border:1px solid #cdd9e3;border-radius:14px}.reference summary{cursor:pointer;font-weight:800;color:#10263a}.reference li{margin:.55em 0}a{color:#145679}#facts{padding:12px 14px;background:#e9f5f2;color:#10263a;border-radius:8px;margin-bottom:16px}#facts p{margin:.35em 0 0}
+.price-scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;margin:10px 0}caption{text-align:left;font-weight:700}th,td{text-align:left;padding:8px;border-bottom:1px solid #cdd9e3}
+</style>
+<header><div><section><p class="eyebrow">Interactive field guide</p><h1>Fiber Sales Practice Lab</h1><p class="muted">Practice real objections before your next call.</p></section><div><label id="progress-label" for="progress"></label><br><progress id="progress"></progress></div></div></header>
+<main><h2>Explore objections</h2><p class="muted">Pick a card. Try your own response first, then see how you could reply and follow up.</p>
+<section class="filters" aria-label="Scenario filters"><label for="search">Search objections</label><input type="search" id="search" placeholder="Try spouse, cheaper, or installation"><div class="row" id="filters"></div></section>
+<p id="count" class="muted" role="status"></p><div class="grid" id="cards"></div>
+<details class="reference"><summary>Frontier Fiber pricing, speeds &amp; promotions</summary>
+<p><strong>Advertised examples checked November 5, 2026.</strong> These are monthly online rates at qualifying addresses with the advertised billing and discount terms. Wired speed tiers are shown as download/upload. Your address quote controls.</p>
+<div class="price-scroll"><table><caption>Advertised Frontier Fiber plan comparison</caption><thead><tr><th scope="col">Plan</th><th scope="col">Wired speed tier</th><th scope="col">From / month</th></tr></thead><tbody>
+<tr><th scope="row">Fiber 500</th><td>500 / 500 Mbps</td><td>$44.99</td></tr>
+<tr><th scope="row">Fiber 1 Gig</th><td>1 / 1 Gbps</td><td>$64.99</td></tr>
+<tr><th scope="row">Fiber 2 Gig</th><td>2 / 2 Gbps</td><td>$79.99</td></tr>
+<tr><th scope="row">Fiber 5 Gig</th><td>5 / 5 Gbps</td><td>$104.99</td></tr>
+<tr><th scope="row">Fiber 7 Gig</th><td>7 / 7 Gbps</td><td>$124.99</td></tr>
+</tbody></table></div>
+<p><strong>Promotions to check:</strong> Frontier’s deals page lists Whole Home Wi-Fi and free installation on eligible 1 Gig and faster plans, and a $15/month discount for qualifying Frontier Fiber and Verizon mobile customers. The online plans page also shows two months on select offers, Visa reward cards, and a Samsung TV/soundbar or gift-card alternative on select multi-gig offers. Confirm the reward amount, billing credits, eligibility, redemption and whether offers combine before quoting.</p>
+<p><a href="https://go.frontier.com/fiber/internet">Advertised plan comparison</a> · <a href="https://frontier.com/shop/deals">Frontier deals</a></p>
+<ul>
+<li><strong>Speed and data:</strong> Frontier advertises unlimited data with no overage charges. Compare the plan’s listed upload and download speeds with the customer’s current plan. Wired plan speeds and Wi-Fi speeds on a particular device are different. Frontier lists 500 Mbps, 1 Gig, 2 Gig, and 5 Gig plans, and advertises 7 Gig in select areas. <a href="https://frontier.com/pages/why-frontier/get-fiber">Fiber overview</a> · <a href="https://frontier.com/shop/internet/fiber-internet/7-gig">7 Gig availability</a></li>
+<li><strong>Price and promotions:</strong> Use the address quote and Broadband Facts label. Confirm the regular and promotional prices, when the promotion ends, Auto Pay and paperless billing requirements, installation charges, add-ons, and any contract or cancellation terms. Confirm gift card or other reward eligibility and redemption steps before quoting it. <a href="https://frontier.com/consumerlabels">Broadband Facts labels</a></li>
+<li><strong>Router and Wi-Fi:</strong> Frontier says its internet plans include a router with no monthly equipment rental fee. Its Whole-Home Wi-Fi page advertises inclusion on Fiber 1 Gig or faster plans. Check the specific quote for the equipment, coverage options, and any charges. <a href="https://frontier.com/shop/internet/whole-home-wifi">Whole-Home Wi-Fi</a></li>
+<li><strong>Installation and switching:</strong> Some properties need a fiber line run from the street before installation. Check the route and any required permissions with Frontier. When practical, test the new service before canceling the old one. <a href="https://frontier.com/helpcenter/frontier-installation">Installation guide</a></li>
+<li><strong>TV, home phone, and work needs:</strong> Confirm TV subscription cost and channels separately. Frontier Fiber Digital Voice runs over the fiber network; confirm availability, number transfer, backup power, and compatibility before changing phone service. Verify static IP or equipment requirements with Frontier before committing. <a href="https://frontier.com/helpcenter/phone/fiber-digital-voice">Fiber Digital Voice</a></li>
+</ul></details><footer class="muted">Practice only. Verify pricing and terms before quoting them. Progress resets when you reload.</footer></main>
+<dialog id="demo" aria-labelledby="title"><div class="between"><span id="topic" class="eyebrow"></span><button id="close" type="button">Close</button></div><h2 id="title" tabindex="-1">Practice scenario</h2><div class="bubble"><strong>Customer:</strong> <span id="customer"></span></div><section class="phase" aria-live="polite"><p class="eyebrow" id="phase"></p><p id="body"></p></section><aside id="facts" hidden><strong>Frontier talking point</strong><p id="fact-text"></p></aside><p id="exit" class="exit" hidden><strong>If they still decline:</strong> Thank them and end the call. If they need time, ask permission to call back and agree on a time. Confirm their explicit approval before submitting an order.</p><div class="between"><button id="back" type="button">Back</button><button class="primary" id="forward" type="button"></button></div></dialog>
+<script>
+"use strict";
+const scenarios=[
+ [
+  "Interest",
+  "I’m not interested.",
+  "I hear you. Is it that you’re happy with what you have, or is now just a bad time?",
+  "Ask one clarifying question if they’re open to it. If they name a concern you can solve, say: “Let’s check the options at your address and see what solves that.” If they give a clear no, wrap up."
+ ],
+ [
+  "Timing",
+  "I need to talk to my spouse.",
+  "Of course. What do you think your spouse will want to know first: the price, how installation works, or something else?",
+  "“Let’s get you both the same written quote. What’s a good time for us to go over it together?” Wait for both to make their decision before booking."
+ ],
+ [
+  "Timing",
+  "Can you send me the info first?",
+  "Absolutely. Before I send it, what’s the main thing you want to compare? I can include the exact details you’ll need to decide.",
+  "“I’ll send the full monthly cost and installation details. Let’s pick a time to go over it after you’ve had a chance to compare.”"
+ ],
+ [
+  "Trust",
+  "I switched away because I kept losing internet.",
+  "I can see why you switched. Was it the outages themselves or how long it took to get help that made you leave?",
+  "“Let’s check the install and support details first. If those address what happened last time, we can plan the switch around your current service.”"
+ ],
+ [
+  "Price",
+  "My current plan is cheaper.",
+  "I get wanting to keep the lower bill. Are you comparing just internet, or does your current total include equipment or a bundle? “Frontier advertises Fiber 500 at $44.99 a month at qualifying addresses with the advertised billing terms. Let’s check the actual quote and see how it compares.”",
+  "Let’s compare the full monthly cost. If the quote works for you, let’s confirm the plan and review the order."
+ ],
+ [
+  "Interest",
+  "My internet works fine.",
+  "Glad it works well. If you could change one thing about it, would it be the bill, Wi-Fi coverage, or nothing at all?",
+  "If they name something they want to improve: “Let’s compare a plan that solves that and see what it comes to at your address.” If they’re happy as is, thank them."
+ ],
+ [
+  "Trust",
+  "I don’t want to lose internet during the switch.",
+  "I get it. How much downtime could you handle? We can check whether you can keep your current service active until the new connection is tested.",
+  "Let’s verify that first. Once you’re comfortable with the written terms, we can review the order."
+ ],
+ [
+  "Price",
+  "My promotional rate hasn't ended yet.",
+  "Makes sense to keep a rate that works for you.",
+  "Let’s compare the full monthly cost. If the quote works for you, let’s confirm the plan and review the order."
+ ],
+ [
+  "Price",
+  "I don't want my bill jumping later.",
+  "That's fair. I'd want to see what it costs after the promo, too. Would it help if I listed the introductory price and the regular price side by side?",
+  "Let’s compare the full monthly cost. If the quote works for you, let’s confirm the plan and review the order."
+ ],
+ [
+  "Price",
+  "Are there hidden fees?",
+  "Let's look at the full quote together so you can see what is included. Would you like me to separate monthly charges from one-time charges?",
+  "Let’s compare the full monthly cost. If the quote works for you, let’s confirm the plan and review the order."
+ ],
+ [
+  "Price",
+  "I'm on a tight budget.",
+  "I understand. Let's start with what you're comfortable spending. What monthly total would make this worth considering? “Frontier advertises Fiber 500 at $44.99 a month at qualifying addresses with the advertised billing terms. Let’s check the actual quote and see how it compares.”",
+  "Let’s compare the full monthly cost. If the quote works for you, let’s confirm the plan and review the order."
+ ],
+ [
+  "Price",
+  "I don't want to pay for installation.",
+  "I can check the installation terms before you decide. Would you want to look at the offer if the written quote confirms no installation charge?",
+  "Let’s compare the full monthly cost. If the quote works for you, let’s confirm the plan and review the order."
+ ],
+ [
+  "Price",
+  "My provider offered me a discount to stay.",
+  "That could be a good deal. It depends on what the discount includes and how long it lasts. Did they tell you when the discount expires?",
+  "Let’s compare the full monthly cost. If the quote works for you, let’s confirm the plan and review the order."
+ ],
+ [
+  "Timing",
+  "I'm busy right now.",
+  "No problem. I caught you at a bad time. Would another time work better, or should I leave it here?",
+  "Let’s confirm what needs to happen before you’re ready. We can review the quote now or agree on a time to follow up."
+ ],
+ [
+  "Timing",
+  "I'm moving soon.",
+  "That changes things. It may make more sense to plan for your next place. Would checking service at the new place be helpful when you're ready?",
+  "Let’s confirm what needs to happen before you’re ready. We can review the quote now or agree on a time to follow up."
+ ],
+ [
+  "Timing",
+  "I just switched providers.",
+  "I get it. Switching again right away is a hassle. What made you pick your new plan?",
+  "Let’s confirm what needs to happen before you’re ready. We can review the quote now or agree on a time to follow up."
+ ],
+ [
+  "Timing",
+  "I can't take time off for installation.",
+  "I understand. Let’s confirm what installation requires at your address before you decide.",
+  "Let’s confirm what needs to happen before you’re ready. We can review the quote now or agree on a time to follow up."
+ ],
+ [
+  "Timing",
+  "I'm waiting until my contract ends.",
+  "That makes sense if leaving now would cost you money. When is your contract up?",
+  "Let’s confirm what needs to happen before you’re ready. We can review the quote now or agree on a time to follow up."
+ ],
+ [
+  "Timing",
+  "Let me think about it.",
+  "Of course. Take whatever time you need. Is there anything you're still unsure about that I can clear up?",
+  "Let’s confirm what needs to happen before you’re ready. We can review the quote now or agree on a time to follow up."
+ ],
+ [
+  "Trust",
+  "How do I know you're actually with the provider?",
+  "That's a fair question. You can verify the offer through the provider's official channels before sharing information. Would you prefer to look up the provider's contact information yourself?",
+  "Let’s verify that first. Once you’re comfortable with the written terms, we can review the order."
+ ],
+ [
+  "Trust",
+  "I don't give personal information over the phone.",
+  "I respect that. We can talk through the offer without collecting personal information. Would a general plan summary be useful?",
+  "Let’s verify that first. Once you’re comfortable with the written terms, we can review the order."
+ ],
+ [
+  "Trust",
+  "The last salesperson promised something I didn't get.",
+  "I'd be cautious too. I'd want the offer in writing before agreeing to it. What part of the last offer wasn't honored?",
+  "Let’s verify that first. Once you’re comfortable with the written terms, we can review the order."
+ ],
+ [
+  "Trust",
+  "I heard support is hard to reach.",
+  "That matters, especially if you work from home. What type of support would you need if something went wrong?",
+  "Let’s verify that first. Once you’re comfortable with the written terms, we can review the order."
+ ],
+ [
+  "Trust",
+  "I don't want someone drilling into my house.",
+  "I understand. Let’s confirm what installation requires at your address before you decide.",
+  "Let’s verify that first. Once you’re comfortable with the written terms, we can review the order."
+ ],
+ [
+  "Trust",
+  "Can you guarantee it never goes down?",
+  "I can't promise zero outages. I can explain what to confirm about service and support. Is downtime mainly a concern for work, school, or something else?",
+  "Let’s verify that first. Once you’re comfortable with the written terms, we can review the order."
+ ],
+ [
+  "Interest",
+  "I barely use the internet.",
+  "A bigger plan might not make sense for you. What do you normally use it for?",
+  "Let’s confirm the plan that covers what you use and review the monthly total together."
+ ],
+ [
+  "Interest",
+  "I already have fiber.",
+  "If it meets your needs, that may already be a good fit. Is there anything about the price, speed, or support you'd want to change?",
+  "Let’s confirm the plan that covers what you use and review the monthly total together."
+ ],
+ [
+  "Interest",
+  "I only need internet for streaming.",
+  "Then we can focus on the speed you need for how your household actually watches. How many people usually stream at the same time?",
+  "Let’s confirm the plan that covers what you use and review the monthly total together."
+ ],
+ [
+  "Interest",
+  "I don't need gigabit speed.",
+  "You may be right. The best plan depends on what you use it for. How many people and devices are usually online together? “Let’s compare 500 Mbps at an advertised $44.99 with 1 Gig at $64.99, then check what’s actually available at your address.”",
+  "Let’s confirm the plan that covers what you use and review the monthly total together."
+ ],
+ [
+  "Interest",
+  "I don't want a sales pitch.",
+  "Understood. I'll keep it brief, and we can end the call here if you prefer.",
+  "Let’s confirm the plan that covers what you use and review the monthly total together."
+ ],
+ [
+  "Competition",
+  "My cable bundle includes TV and phone.",
+  "The bundle matters. Comparing internet prices alone wouldn't tell you what you'd actually spend. Which TV channels and phone features would you need to keep?",
+  "“Let’s compare both plans line by line. If the Frontier quote gives you what you want, we can plan the switch around your current service.”"
+ ],
+ [
+  "Competition",
+  "My wireless home internet works fine.",
+  "If it's reliable and the price works, that's a good reason to keep it. Have you noticed any issues with uploads or video calls at busy times?",
+  "“Let’s compare both plans line by line. If the Frontier quote gives you what you want, we can plan the switch around your current service.”"
+ ],
+ [
+  "Competition",
+  "My phone plan gives me an internet discount.",
+  "That discount belongs in the comparison. Would switching affect the price of your phone plan too?",
+  "“Let’s compare both plans line by line. If the Frontier quote gives you what you want, we can plan the switch around your current service.”"
+ ],
+ [
+  "Competition",
+  "My provider says their speed is the same.",
+  "Let's compare the plans directly, including upload speeds and the total bill. What speeds are listed on your current plan?",
+  "“Let’s compare both plans line by line. If the Frontier quote gives you what you want, we can plan the switch around your current service.”"
+ ],
+ [
+  "Competition",
+  "My current provider has better reviews.",
+  "Reviews can be useful, especially from people near you. What matters most to you: reliability, support, or something else?",
+  "“Let’s compare both plans line by line. If the Frontier quote gives you what you want, we can plan the switch around your current service.”"
+ ],
+ [
+  "Installation",
+  "I'm renting and need my landlord's permission.",
+  "Good call. You'll want any required approval before work is scheduled. Would an installation summary help you ask your landlord?",
+  "Let’s confirm the setup at your address and review the plan and next steps."
+ ],
+ [
+  "Installation",
+  "I want to keep my own router.",
+  "That may be possible, depending on the service and equipment. What router model do you have so we can check compatibility?",
+  "Let’s confirm the setup at your address and review the plan and next steps."
+ ],
+ [
+  "Installation",
+  "My Wi-Fi doesn't reach the back room.",
+  "That might be a coverage issue inside the house. Does the connection work well near your current router?",
+  "Let’s confirm the setup at your address and review the plan and next steps."
+ ],
+ [
+  "Installation",
+  "Can I keep my landline number?",
+  "Keeping your number is important. We'd need to verify that it can transfer before you cancel anything. Is the number still active with your current provider?",
+  "Let’s confirm the setup at your address and review the plan and next steps."
+ ],
+ [
+  "Installation",
+  "I'm not sure fiber is available at my house.",
+  "Availability can vary by address, even on the same street. Would you like to check through the provider's official availability tool?",
+  "Let’s confirm the setup at your address and review the plan and next steps."
+ ],
+ [
+  "Installation",
+  "I need a static IP for work.",
+  "Let's confirm whether the plan offers one before considering a switch. Does your employer require a public static IP, or do you connect through a VPN?",
+  "Let’s confirm the setup at your address and review the plan and next steps."
+ ]
+];
+const el=id=>document.getElementById(id);
+const done=new Set(), demo=el("demo"), filters=el("filters");
+let category="All", active=0, step=0, opener;
+const categories=["All",...new Set(scenarios.map(item=>item[0]))];
+for(const name of categories){
+ const b=document.createElement("button");b.type="button";b.textContent=name;
+ b.addEventListener("click",()=>{category=name;render();});filters.append(b);
+}
+function render(){
+ for(const b of filters.children)b.setAttribute("aria-pressed",String(b.textContent===category));
+ const q=el("search").value.trim().toLowerCase(), grid=el("cards");
+ grid.replaceChildren();let count=0;
+ scenarios.forEach(([type,statement,reply,follow],i)=>{
+  if((category!=="All"&&type!==category)||![statement,reply,follow,type].join(" ").toLowerCase().includes(q))return;
+  count++;
+  const card=document.createElement("button");card.type="button";card.className="card";
+  for(const [tag,value] of [["small",type.toUpperCase()],["strong",statement],["small",done.has(i)?"✓ Explored · Practice again":"Open scenario →"]]){
+   const node=document.createElement(tag);node.textContent=value;card.append(node);
+  }
+  card.addEventListener("click",()=>{opener=i;active=i;step=0;show();demo.showModal();el("title").focus();});
+  card.dataset.index=String(i);grid.append(card);
+ });
+ el("count").textContent=count?count+" scenario"+(count===1?"":"s"):"No matching scenarios. Try another search or category.";
+ el("progress").max=scenarios.length;el("progress").value=done.size;
+ el("progress-label").textContent=done.size+" of "+scenarios.length+" explored";
+}
+function frontierFact(type,statement){
+ const q=statement.toLowerCase();
+ if(/landline|phone features/.test(q))return "Frontier Fiber Digital Voice runs over fiber. Check whether their number can transfer and ask about equipment and backup power. Keep the old number active until the transfer is confirmed.";
+ if(/static ip|own router/.test(q))return "Check the specific plan and equipment requirements before quoting support for a static IP or third-party router. Ask for the required setup or router model.";
+ if(/bundle|phone plan|discount to stay/.test(q))return "Compare the complete household bill. Check the price of any separate TV or phone service and whether switching affects a bundle or wireless discount.";
+ if(/wi-fi|back room/.test(q))return "Frontier says its plans include a router, and advertises Whole-Home Wi-Fi on Fiber 1 Gig or faster. Confirm the actual equipment and coverage options on the quote.";
+ if(/installation|drilling|renting|lose internet|available at my house/.test(q))return "Check service at the exact address. Frontier says some homes need a line installed before installation. Confirm permissions and routing; suggest testing the new connection before canceling the old one.";
+ if(/outage|losing internet|support/.test(q))return "Avoid uptime promises. Confirm the support options and help them plan how to switch with as little interruption as practical.";
+ return ({
+ Price:"Use the Frontier Broadband Facts label and address quote to compare the full monthly cost, price after any promotion, Auto Pay requirements, and one-time charges. Online examples: Fiber 500 from $44.99 and 1 Gig from $64.99. Check any credits or reward eligibility in the quote; compare the recurring bill separately.",
+ Timing:"Confirm any offer expiration. If they have a current contract or are moving, check timing and costs before reviewing the order.",
+ Trust:"Offer a written quote and invite the customer to verify it through Frontier’s official site or support channels before sharing account or payment information.",
+ Interest:"Frontier advertises unlimited data with no overage charges. If uploads or video calls matter, compare the quoted upload speed with their current plan. Recommend a tier that fits their needs.",
+ Competition:"Compare quoted upload and download speeds, equipment, and total cost. Advertised multi-gig examples: 2 Gig from $79.99, 5 Gig from $104.99 and 7 Gig from $124.99. Confirm the quote, equipment requirements and any eligible rewards.",
+ Installation:"Confirm address eligibility, installation requirements and charges in the written quote before submitting an order."
+ })[type];
+}
+function show(){
+ const [type,statement,reply,follow]=scenarios[active];
+ el("topic").textContent=type;el("customer").textContent=statement;
+ el("phase").textContent=["01 / Try it","02 / Sample response","03 / Follow up"][step];
+ el("body").textContent=["Say your response out loud. Acknowledge the concern, ask a question to find out what’s holding them back, and think about what would earn a yes. If they clearly ask to end the call, respect that.",reply,follow][step];
+ el("facts").hidden=step===0;
+ el("fact-text").textContent=frontierFact(type,statement);
+ el("exit").hidden=step!==2;
+ el("back").disabled=step===0;
+ el("forward").textContent=["Reveal response","See follow-up","Finish scenario"][step];
+}
+el("search").addEventListener("input",render);
+el("close").addEventListener("click",()=>demo.close());
+el("back").addEventListener("click",()=>{if(step>0){step--;show();}});
+el("forward").addEventListener("click",()=>{if(step===2){done.add(active);demo.close();}else{step++;show();}});
+demo.addEventListener("close",()=>{render();el("cards").querySelector('[data-index="'+opener+'"]')?.focus();});
+render();
+</script></html>
