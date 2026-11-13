@@ -1,4 +1,6 @@
 "use strict";
+
+// Each entry contains a category, objection, and several possible replies.
 const scenarios=[
  [
   "Interest",
@@ -329,8 +331,14 @@ const scenarios=[
   "Let’s confirm whether a static IP is offered on the plan and what it costs before we talk about switching."
  ]
 ];
+
+// This helper finds an HTML element by its unique id.
 const el=id=>document.getElementById(id);
+
+// A storage key is the name the browser uses to look up a saved value.
 const progressKey = "fiber-lab-completed-v1";
+
+// Read this browser’s saved progress. JSON is text that represents structured data. Ignore invalid scenario numbers and start fresh if reading fails.
 function loadProgress(){
  try{
   const saved = JSON.parse(localStorage.getItem(progressKey) ?? "[]");
@@ -339,6 +347,8 @@ function loadProgress(){
   return new Set();
  }
 }
+
+// Convert completed scenario numbers into text and store it in this browser.
 function saveProgress(){
  try{
   localStorage.setItem(progressKey, JSON.stringify([...done]));
@@ -346,13 +356,19 @@ function saveProgress(){
   // Keep the trainer usable if the browser blocks storage.
  }
 }
+
+// A Set stores each completed scenario only once. The other variables track the open dialog.
 const done=loadProgress(), demo=el("demo"), filters=el("filters");
 let category="All", active=0, step=0, opener;
+
+// Build a filter button for each distinct category.
 const categories=["All",...new Set(scenarios.map(item=>item[0]))];
 for(const name of categories){
  const b=document.createElement("button");b.type="button";b.textContent=name;
  b.addEventListener("click",()=>{category=name;render();});filters.append(b);
 }
+
+// Rebuild the visible cards from the selected category and search text, then update the progress display.
 function render(){
  for(const b of filters.children)b.setAttribute("aria-pressed",String(b.textContent===category));
  const q=el("search").value.trim().toLowerCase(), grid=el("cards");
@@ -371,6 +387,8 @@ function render(){
  el("progress").max=scenarios.length;el("progress").value=done.size;
  el("progress-label").textContent=done.size+" of "+scenarios.length+" explored";
 }
+
+// Choose a provider talking point that matches the current objection.
 function frontierFact(type,statement){
  const q=statement.toLowerCase();
  if(/landline|phone features/.test(q))return "Frontier Fiber Digital Voice runs over fiber. Check whether their number can transfer and ask about equipment and backup power. Keep the old number active until the transfer is confirmed.";
@@ -388,6 +406,8 @@ function frontierFact(type,statement){
  Installation:"Confirm address eligibility, installation requirements and charges in the written quote before submitting an order."
  })[type];
 }
+
+// Update the dialog to show the current stage of practice.
 function show(){
  const [type,statement,reply,follow,short,next]=scenarios[active];
  el("alternatives").hidden=step!==1;
@@ -402,9 +422,17 @@ function show(){
  el("back").disabled=step===0;
  el("forward").textContent=["Reveal response","See follow-up","Finish scenario"][step];
 }
+
+// An event listener runs a function when the browser reports an action, such as typing or clicking.
 el("search").addEventListener("input",render);
 el("close").addEventListener("click",()=>demo.close());
 el("back").addEventListener("click",()=>{if(step>0){step--;show();}});
+
+// Advance to the next stage or record completion if the visitor finishes.
 el("forward").addEventListener("click",()=>{if(step===2){done.add(active);saveProgress();demo.close();}else{step++;show();}});
+
+// After the dialog closes, update the page and return keyboard focus to the card.
 demo.addEventListener("close",()=>{render();el("cards").querySelector('[data-index="'+opener+'"]')?.focus();});
+// Draw the first set of cards when the page loads.
+
 render();

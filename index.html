@@ -1,12 +1,22 @@
 <!doctype html>
 <html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+
+<!-- The content security policy limits which resources the browser can load. -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
 <title>Fiber Sales Practice Lab</title>
+
+<!-- Load the shared appearance rules from the CSS file. -->
 <link rel="stylesheet" href="./style.css">
+
+<!-- The page header introduces the trainer and displays practice progress. -->
 <header><div><section><p class="eyebrow">Interactive field guide</p><h1>Fiber Sales Practice Lab</h1><p class="muted">Practice real objections before your next call.</p></section><div><label id="progress-label" for="progress"></label><br><progress id="progress"></progress></div></div></header>
+
+<!-- The main area holds search, filters, objection cards, and reference material. -->
 <main><h2>Explore objections</h2><p class="muted">Pick a card. Try your own response first, then see how you could reply and follow up.</p>
 <section class="filters" aria-label="Scenario filters"><label for="search">Search objections</label><input type="search" id="search" placeholder="Try spouse, cheaper, or installation"><div class="row" id="filters"></div></section>
 <p id="count" class="muted" role="status"></p><div class="grid" id="cards"></div>
+
+<!-- This reference panel expands when the visitor selects its summary. -->
 <details class="reference"><summary>Frontier Fiber pricing, speeds &amp; promotions</summary>
 <p><strong>Advertised examples checked November 5, 2026.</strong> These are monthly online rates at qualifying addresses with the advertised billing and discount terms. Wired speed tiers are shown as download/upload. Your address quote controls.</p>
 <div class="price-scroll"><table><caption>Advertised Frontier Fiber plan comparison</caption><thead><tr><th scope="col">Plan</th><th scope="col">Wired speed tier</th><th scope="col">From / month</th></tr></thead><tbody>
@@ -25,5 +35,9 @@
 <li><strong>Installation and switching:</strong> Some properties need a fiber line run from the street before installation. Check the route and any required permissions with Frontier. When practical, test the new service before canceling the old one. <a href="https://frontier.com/helpcenter/frontier-installation">Installation guide</a></li>
 <li><strong>TV, home phone, and work needs:</strong> Confirm TV subscription cost and channels separately. Frontier Fiber Digital Voice runs over the fiber network; confirm availability, number transfer, backup power, and compatibility before changing phone service. Verify static IP or equipment requirements with Frontier before committing. <a href="https://frontier.com/helpcenter/phone/fiber-digital-voice">Fiber Digital Voice</a></li>
 </ul></details><footer class="muted">Practice only. Verify pricing and terms before quoting them. Completed scenarios are saved in this browser.</footer><p class="eyebrow">Practice tip: Pause, acknowledge the concern, and ask one useful question before offering a next step.</p><p>Training references: <a href="https://www.gong.io/blog/handling-sales-objections">Gong Labs call analysis</a> and <a href="https://cdn2.hubspot.net/hubfs/53/overcoming_sales_objections.pdf">HubSpot’s LAER guide</a>.</p></main>
+
+<!-- This dialog is a pop-up used to practice one objection at a time. -->
 <dialog id="demo" aria-labelledby="title"><div class="between"><span id="topic" class="eyebrow"></span><button id="close" type="button">Close</button></div><h2 id="title" tabindex="-1">Practice scenario</h2><div class="bubble"><strong>Customer:</strong> <span id="customer"></span></div><section class="phase" aria-live="polite"><p class="eyebrow" id="phase"></p><p id="body"></p></section><section id="alternatives" hidden aria-label="More response options"><p class="eyebrow">Other ways to respond</p><p><strong>Short and direct:</strong> <span id="short-reply"></span></p><p><strong>Move it forward:</strong> <span id="next-reply"></span></p></section><aside id="facts" hidden><strong>Frontier talking point</strong><p id="fact-text"></p></aside><p id="exit" class="exit" hidden><strong>If they still decline:</strong> Thank them and end the call. If they need time, ask permission to call back and agree on a time. Confirm their explicit approval before submitting an order.</p><div class="between"><button id="back" type="button">Back</button><button class="primary" id="forward" type="button"></button></div></dialog>
+
+<!-- Run the JavaScript after the page elements above are available. -->
 <script src="./script.js"></script></html>
